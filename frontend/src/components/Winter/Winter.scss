@@ -1,0 +1,38 @@
+.section-winter{
+    background-image: url(https://preview.colorlib.com/theme/estore/assets/img/hero/h1_hero.jpg.webp);
+    
+    .winter-content{
+        display: flex;
+        align-items: center;
+
+
+        .content-image{
+
+            img{
+
+            }
+        }
+        .content-description{
+            padding: 30px;
+            span{
+                color: #2577fd;
+                font-size: 40px;
+            }
+            h1{
+                font-size: 100px;
+            }
+            p{
+                font-size: 20px;
+            }
+            button{
+                padding: 10px 20px;
+                background-color: #2577fd;
+                border: none;
+                color: white;
+                border-radius: 10px;
+
+            }
+        }
+
+    }
+}
