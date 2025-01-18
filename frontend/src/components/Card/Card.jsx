@@ -1,12 +1,14 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addBasket } from "../../redux/features/basketSlice";
+import { useNavigate } from "react-router";
 
 const Card = ({product}) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   return (
     <div className="col-lg-3 product-card">
-      <div className="card-image">
+      <div className="card-image" onClick={()=> navigate(`/detail/${product._id}`)}>
         <img
           src={product.image}
           alt=""

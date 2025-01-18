@@ -41,21 +41,17 @@ export const productSlice = createSlice({
   initialState,
   reducers: {
     searchProduct: (state, action) => {
-      state.allProducts = state.allProducts?.filter((product) =>
+      state.products = state.allProducts?.filter((product) =>
         product.title
           .toLowerCase()
           .includes(action.payload.trim().toLowerCase())
       );
     },
-    sortAzProduct: (state) => {
-      state.allProducts = state.allProducts.sort((a, b) =>
-        a.title.localeCompare(b.title)
-      );
+    sortHighestProduct: (state) => {
+      state.products = state.products.sort((a, b) => a.price - b.price)
     },
-    sortZaProduct: (state) => {
-      state.allProducts = state.allProducts.sort((a, b) =>
-        b.title.localeCompare(a.title)
-      );
+    sortLowestProduct: (state) => {
+      state.products = state.products.sort((a, b) => b.price - a.price)
     },
   },
   extraReducers: (builder) => {
@@ -66,7 +62,6 @@ export const productSlice = createSlice({
       })
       .addCase(addProduct.fulfilled, (state, action) => {
         state.products.push = { ...action.payload };
-        state.allProducts.push = { ...action.payload };
       })
       .addCase(deleteProduct.fulfilled, (state, action) => {
         state.products = state.products.filter(product => product._id !== action.payload._id);
@@ -74,6 +69,6 @@ export const productSlice = createSlice({
   },
 });
 
-export const { searchProduct, sortAzProduct, sortZaProduct } = productSlice.actions;
+export const { searchProduct, sortHighestProduct, sortLowestProduct } = productSlice.actions;
 
 export default productSlice.reducer;

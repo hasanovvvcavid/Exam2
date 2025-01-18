@@ -5,21 +5,28 @@ import {
   addProduct,
   deleteProduct,
   getProducts,
-  sortAzProduct,
-  sortZaProduct,
+  sortHighestProduct,
+  sortLowestProduct,
 } from "../../redux/features/productSlice";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./Admin.scss";
 import { useState } from "react";
+import { all } from "axios";
 
 const Admin = () => {
-  const formik = useFormik({
+  const { resetForm, values, handleChange, errors, handleSubmit } = useFormik({
     initialValues: {
       image: "",
       title: "",
       category: "",
       price: "",
+    },
+    onSubmit(values) {
+      dispatch(addProduct(values));
+      dispatch(getProducts());
+      resetForm();
+      setOpen(false);
     },
     validationSchema: Yup.object({
       image: Yup.string().required("Image is required").url(),
@@ -27,60 +34,64 @@ const Admin = () => {
       category: Yup.string().required("category is required"),
       price: Yup.number().required("Confirm password is required"),
     }),
-    onSubmit(values) {
-      dispatch(addProduct(values));
-      setOpen(false);
-      dispatch(getProducts());
-      
-    },
   });
-
-  
 
   const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
 
-
   const { products } = useSelector((state) => state.products);
-  useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
 
   return (
     <div className="container">
       {open && (
         <div className="formik-modal">
           <h2>Add Product</h2>
-          <form onSubmit={formik.handleSubmit}>
-            {/* {errors.image && <p>{errors.image.message}</p>} */}
-            <input
-              onChange={formik.handleChange}
-              value={formik.values.image}
-              name="image"
-              type="text"
-            />
-            {/* {errors.title && <p>{errors.title.message}</p>} */}
-            <input
-              onChange={formik.handleChange}
-              value={formik.values.title}
-              name="title"
-              type="text"
-            />
-            {/* {errors.category && <p>{errors.category.message}</p>} */}
-            <input
-              onChange={formik.handleChange}
-              value={formik.values.category}
-              name="category"
-              type="text"
-            />
-            {/* {errors.price && <p>{errors.price.message}</p>} */}
-            <input
-              onChange={formik.handleChange}
-              value={formik.values.price}
-              name="price"
-              type="text"
-            />
+          <form onSubmit={handleSubmit}>
+            <div className="list-container">
+              {errors.image}
+              <input
+                onChange={handleChange}
+                value={values.image}
+                name="image"
+                type="text"
+                placeholder="Image URL"
+              />
+            </div>
+
+            <div className="list-container">
+            {errors.title}
+              <input
+                onChange={handleChange}
+                value={values.title}
+                name="title"
+                type="text"
+                placeholder="Title"
+              />
+            </div>
+
+            <div className="list-container">
+            {errors.category}
+              <input
+                onChange={handleChange}
+                value={values.category}
+                name="category"
+                type="text"
+                placeholder="Category"
+              />
+            </div>
+
+            <div className="list-container">
+            {errors.price}
+              <input
+                onChange={handleChange}
+                value={values.price}
+                name="price"
+                type="text"
+                placeholder="Price"
+              />
+            </div>
+
             <button className="btn btn-primary" type="submit">
               Submit
             </button>
@@ -91,8 +102,8 @@ const Admin = () => {
         <button onClick={() => setOpen(!open)} className="btn btn-success">
           Creat
         </button>
-        <button onClick={() => dispatch(sortAzProduct())}>AZ</button>
-        <button onClick={() => dispatch(sortZaProduct())}>ZA</button>
+        <button className="btn btn-primary" onClick={() => dispatch(sortHighestProduct())}>AZ</button>
+        <button className="btn btn-primary" onClick={() => dispatch(sortLowestProduct())}>ZA</button>
       </div>
       <h1 className="admin-title">Admin</h1>
       <Table striped bordered hover>

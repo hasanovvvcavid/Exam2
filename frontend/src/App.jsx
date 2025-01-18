@@ -5,6 +5,7 @@ import Admin from "./pages/Admin/Admin";
 import Basket from "./pages/Basket/Basket";
 import Home from "./pages/Home/Home";
 import Nopage from "./pages/Nopage/Nopage";
+import Detail from "./pages/Detail/Detail";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/basket" element={<Basket />} />
+          <Route path="/basket" element={<Basket />} />\
+          <Route path="/detail/:id" element={<Detail />} />
           <Route path="*" element={<Nopage />} />
         </Route>
       </Routes>
