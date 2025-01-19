@@ -12,15 +12,25 @@ const Detail = () => {
   return (
     <div>
         <div className="container">
-            <div className="detail-image">
+            <div className="row">
+            <div className="col-lg-6">
+                <div className="detail-image">
                 <img src={findPruduct.image} alt="" />
+                </div>
             </div>
-            <div className="detail-info">
+            <div className="col-lg-6">
+                <div className="detail-content">
                 <h2>{findPruduct.title}</h2>
-                <h3>{findPruduct.category}</h3>
-                <h4>{findPruduct.price}</h4>
                 <p>{findPruduct.description}</p>
-                <button>Add to cart</button>
+                <div className="detail-price">
+                    <span>${findPruduct.price}</span>
+                    <span>${findPruduct.price * 1.5}</span>
+                </div>
+                <div className="detail-add">
+                    <button className="btn btn-danger">Add Basket</button>
+                </div>
+                </div>
+            </div>
             </div>
         </div>
     </div>

@@ -31,6 +31,7 @@ const Card = ({product}) => {
         <div className="add-to-basket">
           <button onClick={()=>dispatch(addBasket(product))} className="btn btn-danger">Add Basket</button>
         </div>
+        
       </div>
     </div>
   );

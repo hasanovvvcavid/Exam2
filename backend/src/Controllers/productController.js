@@ -12,7 +12,7 @@ export const addProduct = async (req, res) => {
   try {
     const newProduct = new product(req.body);
     await newProduct.save();
-    res.status(201).json({ newProduct });
+    res.status(201).json(newProduct);
   } catch (error) {
     res.status(500).json();
   }

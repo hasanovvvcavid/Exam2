@@ -61,7 +61,8 @@ export const productSlice = createSlice({
         state.allProducts = action.payload;
       })
       .addCase(addProduct.fulfilled, (state, action) => {
-        state.products.push = { ...action.payload };
+        state.products.push({ ...action.payload});
+        state.allProducts.push({ ...action.payload});
       })
       .addCase(deleteProduct.fulfilled, (state, action) => {
         state.products = state.products.filter(product => product._id !== action.payload._id);

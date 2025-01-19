@@ -15,6 +15,13 @@ import { useState } from "react";
 import { all } from "axios";
 
 const Admin = () => {
+  const [open, setOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const { products } = useSelector((state) => state.products);
+  console.log(products);
+  
   const { resetForm, values, handleChange, errors, handleSubmit } = useFormik({
     initialValues: {
       image: "",
@@ -36,11 +43,7 @@ const Admin = () => {
     }),
   });
 
-  const [open, setOpen] = useState(false);
-
-  const dispatch = useDispatch();
-
-  const { products } = useSelector((state) => state.products);
+  
 
   return (
     <div className="container">
